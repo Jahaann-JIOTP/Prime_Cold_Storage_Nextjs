@@ -1,0 +1,60 @@
+"use client";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExpand } from '@fortawesome/free-solid-svg-icons';
+
+class Div extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
+    };
+  }
+
+  toggleExpand = () => {
+    this.setState((prevState) => ({
+      expanded: !prevState.expanded,
+    }));
+  };
+
+  render() {
+    const { id, title, children, length, height, date_select, hide } = this.props;
+    const { expanded } = this.state;
+    return (
+      <div
+        id={id}
+        className={`relative w-full sm:w-full md:w-[46%] ${length} mb-2 rounded-xl shadow-[rgba(0,0,0,0.24)_0px_3px_8px] ${expanded ? "absolute top-0 left-0 w-full h-screen z-[999] bg-white"
+          : ""}`}
+        style={{
+          height: expanded ? '100%' : `${height}`,
+          width: expanded ? '100%' : '',
+          position: expanded ? 'fixed' : '',
+          zIndex: expanded ? '999' : '',
+          boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+        }}
+      >
+        {/* Background Layer with opacity */}
+        <div className="absolute inset-0 bg-white rounded-xl" style={{ opacity: 0.5 }} />
+    
+        {/* Content Layer */}
+        <div className="relative text-black p-4 z-10">
+          <div className="absolute top-4 right-4 mr-2">
+            <div className="float-right cursor-pointer">
+              {date_select}
+              <FontAwesomeIcon icon={faExpand} onClick={this.toggleExpand} className={hide} />
+            </div>
+          </div>
+    
+          <div className="absolute top-2 left-4">
+            <p className="text-lg font-bold">{title}</p>
+          </div>
+    
+          {children}
+        </div>
+      </div>
+    );
+    
+  }
+}
+
+export default Div
