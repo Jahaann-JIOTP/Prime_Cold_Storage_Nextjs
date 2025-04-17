@@ -118,9 +118,9 @@ function CustomTrend() {
 
   useEffect(() => {
     if (startDate && endDate && selectedMeter.length > 0 && selectedParameter) {
-      const apiUrl = `http://15.206.128.214/Test_API/line_api.php?start_date=${startDate}&end_date=${endDate}&meterId=${selectedMeter
-        .map((m) => meterMapping[m])
-        .join(",")}&suffixes=${parameterMapping[selectedParameter]}`;
+      const meterIds = selectedMeter.map(meter => meterMapping[meter]).join(',');
+      const apiUrl = `http://localhost:5000/trends?start_date=${startDate}&end_date=${endDate}&meterId=${meterIds}&suffixes=${parameterMapping[selectedParameter]}`;
+      
 
       fetch(apiUrl)
         .then((response) => response.json())

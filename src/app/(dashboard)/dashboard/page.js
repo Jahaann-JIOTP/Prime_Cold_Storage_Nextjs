@@ -304,7 +304,7 @@ function DashboardPage() {
 
   useEffect(() => {
     const fetchSolarData = () => {
-      const apiUrl = `http://15.206.128.214/Test_API/solar_vs_trans.php?start_date=${solarStartDate}&end_date=${solarEndDate}`;
+      const apiUrl = `http://localhost:5000/dashboard/consumption?start_date=${solarStartDate}&end_date=${solarEndDate}`;
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
@@ -325,12 +325,12 @@ function DashboardPage() {
 
   useEffect(() => {
     const fetchTransformerData = () => {
-      const apiUrl = `http://15.206.128.214/Test_API/solar_vs_trans.php?start_date=${transformerStartDate}&end_date=${transformerEndDate}`;
+      const apiUrl = `http://localhost:5000/dashboard/consumption?start_date=${transformerStartDate}&end_date=${transformerEndDate}`;
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
           if (data && data.total_consumption) {
-            setTransformerValue(data.total_consumption.Transformers);
+            setTransformerValue(data.total_consumption.Transformers_Import);
           }
         })
         .catch((error) => {
@@ -346,7 +346,7 @@ function DashboardPage() {
 
   useEffect(() => {
     const fetchTransformer1Data = () => {
-      const apiUrl = `http://localhost/Test_API/solar_vs_trans.php?start_date=${transformer1StartDate}&end_date=${transformer1EndDate}`;
+      const apiUrl = `http://localhost:5000/dashboard/consumption?start_date=${transformer1StartDate}&end_date=${transformer1EndDate}`;
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
@@ -367,7 +367,7 @@ function DashboardPage() {
 
   useEffect(() => {
     const fetchAll_GensetData = () => {
-      const apiUrl = `http://15.206.128.214/Test_API/solar_vs_trans.php?start_date=${All_GensetStartDate}&end_date=${All_GensetEndDate}`;
+      const apiUrl = `http://localhost:5000/dashboard/consumption?start_date=${All_GensetStartDate}&end_date=${All_GensetEndDate}`;
       fetch(apiUrl)
         .then((response) => response.json())
         .then((data) => {
@@ -1193,11 +1193,11 @@ function DashboardPage() {
           >
             {transformerValue !== null ? (
               <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
-                {/* {transformerValue} kWh */}
+                {transformerValue} kWh
               </p>
             ) : (
               <div className="flex items-center justify-center mt-4 overflow-hidden text-ellipsis">
-                {/* <p>Loading...</p> */}
+                <p>Loading...</p>
               </div>
             )}
           </Div>
@@ -1212,11 +1212,11 @@ function DashboardPage() {
           >
             {solarValue !== null ? (
               <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
-                {/* {solarValue.toFixed(2)} kWh */}
+                {solarValue.toFixed(2)} kWh
               </p>
             ) : (
               <div className="flex items-center justify-center mt-4 overflow-hidden text-ellipsis">
-                {/* <p>Loading...</p> */}
+                <p>Loading...</p>
               </div>
             )}
           </Div>
@@ -1239,11 +1239,11 @@ function DashboardPage() {
             {typeof transformer1Value === "number" &&
             !isNaN(transformer1Value) ? (
               <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
-                {/* {transformer1Value.toFixed(2)} kWh */}
+                {transformer1Value.toFixed(2)} kWh
               </p>
             ) : (
               <div className="flex items-center justify-center mt-4 overflow-hidden text-ellipsis">
-                {/* <p>Loading...</p> */}
+                <p>Loading...</p>
               </div>
             )}
           </Div>
@@ -1265,11 +1265,11 @@ function DashboardPage() {
           >
             {All_GensetValue !== null ? (
               <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
-                {/* {All_GensetValue.toFixed(2)} kWh */}
+                {All_GensetValue.toFixed(2)} kWh
               </p>
             ) : (
               <div className="flex items-center justify-center mt-4 overflow-hidden text-ellipsis">
-                {/* <p>Loading...</p> */}
+                <p>Loading...</p>
               </div>
             )}
           </Div>
@@ -1294,11 +1294,11 @@ function DashboardPage() {
           >
             {All_ConsumptionValue !== null ? (
               <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
-                {/* {All_ConsumptionValue.toFixed(2)} kWh */}
+                {All_ConsumptionValue.toFixed(2)} kWh
               </p>
             ) : (
               <div className="flex items-center justify-center mt-4 overflow-hidden text-ellipsis">
-                {/* <p>Loading...</p> */}
+                <p>Loading...</p>
               </div>
             )}
           </Div>
@@ -1321,11 +1321,11 @@ function DashboardPage() {
           >
             {All_productionValue !== null ? (
               <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
-                {/* {All_productionValue.toFixed(2)} kWh */}
+                {All_productionValue.toFixed(2)} kWh
               </p>
             ) : (
               <div className="flex items-center justify-center mt-4 overflow-hidden text-ellipsis">
-                {/* <p>Loading...</p> */}
+                <p>Loading...</p>
               </div>
             )}
           </Div>
@@ -1348,11 +1348,11 @@ function DashboardPage() {
           >
             {All_energyValue !== null ? (
               <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
-                {/* {All_energyValue.toFixed(2)} kWh */}
+                {All_energyValue.toFixed(2)} kWh
               </p>
             ) : (
               <div className="flex items-center justify-center mt-4 overflow-hidden text-ellipsis">
-                {/* <p>Loading...</p> */}
+                <p>Loading...</p>
               </div>
             )}
           </Div>

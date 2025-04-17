@@ -111,7 +111,7 @@ const ExamplePage = () => {
     }
 
     const suffix = "ACTIVE_ENERGY_IMPORT_KWH"; // Fixed suffix
-    const apiUrl = `http://15.206.128.214/Test_Api/energycostreport.php`;
+    const apiUrl = `http://localhost:5000/energy-cost`;
 
     setLoading(true); // Show the preloader immediately
 

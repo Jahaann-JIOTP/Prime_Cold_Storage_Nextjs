@@ -6,7 +6,6 @@ import DiagramMenu from "@/components/diagram_options";
 import TrendMenu from "@/components/trend_options";
 import AlarmMenu from "@/components/alarms_options";
 import SettingMenu from "@/components/setting_options";
-import Custom_dashMenu from "@/components/cutom_dashboard";
 import ReportsMenu from "@/components/reports_options";
 
 const Sidebar = ({ activeTab, handleTabClick }) => {
