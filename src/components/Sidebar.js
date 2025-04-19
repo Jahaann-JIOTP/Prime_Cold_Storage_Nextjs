@@ -47,11 +47,11 @@ const Sidebar = ({ activeTab, handleTabClick }) => {
   return (
     <aside
       className={`relative overflow-hidden ${
-        isSidebarOpen ? "w-[256px]" : "w-[64px]"
-      } flex-shrink-0 h-[85vh] m-3 mb-0 rounded-[7px] border-t-[5px] border-t-[#1f5897] border-2 border-[grey] transition-all duration-300`}
+        isSidebarOpen ? "w-[14vw]" : "w-[64px]"
+      } flex-shrink-0 h-[39.5vw] m-3 mb-0 rounded-[7px] border-t-[5px] border-t-[#1f5897] border-2 border-[grey] transition-all duration-300`}
     >
       {/* Background layer with opacity */}
-      <div className="absolute inset-0 bg-[#f2f2f2]" style={{ opacity: 0.5 }} />
+      <div className="absolute inset-0 bg-[#f2f2f2]" style={{ opacity: 1 }} />
       
 
       {/* Foreground content */}

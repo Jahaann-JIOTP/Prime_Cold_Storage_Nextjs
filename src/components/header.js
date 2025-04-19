@@ -22,7 +22,7 @@ const Header = ({ handleTabClick }) => {
   };
 
   return (
-    <header className="bg-[#1F5897] text-white mx-0 my-2 mt-0 flex text-sm w-full">
+    <header className="bg-[#1F5897] text-white mx-0 my-2 mt-0 flex text-sm w-full" >
       {/* Small screen dropdown button */}
       <div className="lg:hidden flex justify-between items-center px-4 py-2">
         <p className="text-lg font-bold">Menu</p>
@@ -35,7 +35,7 @@ const Header = ({ handleTabClick }) => {
       <nav
         className={`${
           isDropdownOpen ? "block" : "hidden"
-        } lg:block bg-[#1F5897] lg:flex w-full`}
+        }  bg-[#1F5897] lg:flex w-full`}
       >
         <Link  className={`py-[8px] px-4`} href="/dashboard" onClick={() => handleTabClick("Home")}>
           <p

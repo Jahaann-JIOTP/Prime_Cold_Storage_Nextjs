@@ -45,19 +45,19 @@ function DashboardPage() {
     color = "blue",
     precipitation,
   }) => (
-    <div className="mt-[-15px] flex items-center justify-between p-4 rounded-lg shadow-md custom-weather-condition ">
-      <div className="flex items-center space-x-3">
+    <div className="mt-[-15px] flex items-center justify-between p-2 rounded-lg shadow-md custom-weather-condition ">
+      <div className="flex items-center space-x-2">
         <span className={`text-5xl text-${color}-600`}>{icon}</span>
-        <p className={`font-semibold text-[1.4vw] text-${color}-600`}>
+        <p className={`font-semibold text-[1.2vw] text-${color}-600`}>
           {label}
         </p>
       </div>
       <div className="text-center">
-        <p className={`text-[1.5vw] text-blue-600`}>{temp}°C</p>
+        <p className={`text-[1.3vw] text-blue-600`}>{temp}°C</p>
         {precipitation !== undefined && (
           <>
             {/* <hr className="my-2 border-t-2 border-gray-300 mt-10" /> */}
-            <p className="text-lg text-gray-600">{precipitation} mm</p>
+            <p className="text-[1vw] text-gray-600">{precipitation} mm</p>
           </>
         )}
       </div>
@@ -388,7 +388,7 @@ function DashboardPage() {
 
   useEffect(() => {
     const fetchAll_ConsumptionData = async () => {
-      const apiUrl = `http://localhost/Test_API/total_consumption.php?start_date=${All_ConsumptionStartDate}&end_date=${All_ConsumptionEndDate}`;
+      const apiUrl = `http://localhost:5000/energy/consumption?start_date=${All_ConsumptionStartDate}&end_date=${All_ConsumptionEndDate}`;
       console.log("Fetching:", apiUrl);
 
       try {
@@ -420,7 +420,7 @@ function DashboardPage() {
 
   useEffect(() => {
     const fetchAll_productionData = async () => {
-      const apiUrl = `http://localhost/Test_API/unaccoutable_energy.php?start_date=${All_productionStartDate}&end_date=${All_productionEndDate}`;
+      const apiUrl = `http://localhost:5000/energy/consumption?start_date=${All_productionStartDate}&end_date=${All_productionEndDate}`;
       console.log("Fetching:", apiUrl);
 
       try {
@@ -452,7 +452,7 @@ function DashboardPage() {
 
   useEffect(() => {
     const fetchAll_energyData = async () => {
-      const apiUrl = `http://localhost/Test_API/unaccoutable_energy.php?start_date=${All_energyStartDate}&end_date=${All_energyEndDate}`;
+      const apiUrl = `http://localhost:5000/energy/consumption?start_date=${All_energyStartDate}&end_date=${All_energyEndDate}`;
       console.log("Fetching:", apiUrl);
 
       try {
@@ -492,7 +492,7 @@ function DashboardPage() {
         chart.logo.disabled = true;
 
         // Dynamic API URL for production chart
-        const apiUrl = `http://15.206.128.214/Test_API/solar_vs_trans_com.php?start_date=${startDate}&end_date=${endDate}&label=${timePeriod}`;
+        const apiUrl = `http://localhost:5000/con_vs_pro?start_date=${startDate}&end_date=${endDate}&label=${timePeriod}`;
 
         try {
           const response = await axios.get(apiUrl);
@@ -506,7 +506,7 @@ function DashboardPage() {
           const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
           dateAxis.renderer.grid.template.location = 0;
           dateAxis.renderer.minGridDistance = 50;
-          dateAxis.renderer.labels.template.fontSize = 14;
+          dateAxis.renderer.labels.template.fontSize = 12;
 
           // Create primary Y-axis (for generated and transformer power in kW)
           const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -515,7 +515,7 @@ function DashboardPage() {
           valueAxis.renderer.labels.template.fontWeight = "bold";
           valueAxis.title.rotation = -90;
           valueAxis.title.fill = am4core.color("#666666");
-          valueAxis.title.fontSize = 14;
+          valueAxis.title.fontSize = 12;
           valueAxis.title.fontWeight = "bold";
           valueAxis.title.valign = "middle";
           valueAxis.title.align = "center";
@@ -539,7 +539,7 @@ function DashboardPage() {
           secondaryValueAxis.title.text = "SOLAR USAGE (%)";
           secondaryValueAxis.title.rotation = -90;
           secondaryValueAxis.title.fill = am4core.color("#666666");
-          secondaryValueAxis.title.fontSize = 14;
+          secondaryValueAxis.title.fontSize = 12;
           secondaryValueAxis.title.fontWeight = "bold";
           secondaryValueAxis.title.valign = "middle";
           secondaryValueAxis.title.align = "center";
@@ -632,12 +632,13 @@ function DashboardPage() {
           chart.legend = new am4charts.Legend();
           chart.legend.position = "bottom"; // Adjust position to "bottom" for better mobile view
           chart.legend.valign = "middle";
-          chart.legend.fontSize = 14;
+          chart.legend.fontSize = 12;
           chart.legend.maxWidth = am4core.percent(100); // Ensure it takes full width for smaller screens
-          chart.legend.labels.template.maxWidth = 100;
+          chart.legend.labels.template.maxWidth = 150;
           chart.legend.scrollable = true;
           chart.legend.valueLabels.template.disabled = true;
-          chart.legend.paddingBottom = 25; // Adjust the value as needed
+          chart.legend.paddingBottom = 20; // Adjust the value as needed
+          chart.legend.paddingTop = -10; // Adjust the value as needed
 
           // Legend markers configuration
           var markerTemplate = chart.legend.markers.template;
@@ -712,7 +713,7 @@ function DashboardPage() {
           chart.legend = new am4charts.Legend();
           chart.legend.position = "bottom"; // Adjust position to "bottom" for better mobile view
           chart.legend.valign = "middle";
-          chart.legend.fontSize = 14;
+          chart.legend.fontSize = 12;
           chart.legend.maxWidth = am4core.percent(100); // Ensure it takes full width for smaller screens
           chart.legend.labels.template.maxWidth = 100;
           chart.legend.scrollable = true;
@@ -769,7 +770,7 @@ function DashboardPage() {
           chart.legend = new am4charts.Legend();
           chart.legend.position = "bottom"; // Adjust position to "bottom" for better mobile view
           chart.legend.valign = "middle";
-          chart.legend.fontSize = 14;
+          chart.legend.fontSize = 12;
           chart.legend.maxWidth = am4core.percent(100); // Ensure it takes full width for smaller screens
           chart.legend.labels.template.maxWidth = 100;
           chart.legend.scrollable = true;
@@ -830,7 +831,7 @@ function DashboardPage() {
           chart.legend = new am4charts.Legend();
           chart.legend.position = "bottom"; // Adjust position to "bottom" for better mobile view
           chart.legend.valign = "middle";
-          chart.legend.fontSize = 14;
+          chart.legend.fontSize = 12;
           chart.legend.maxWidth = am4core.percent(100); // Ensure it takes full width for smaller screens
           chart.legend.labels.template.maxWidth = 100;
           chart.legend.scrollable = true;
@@ -1159,9 +1160,9 @@ function DashboardPage() {
   return (
     <main className="p-1 mt-[-12px]">
       <div className="">
-        <label className="font-bold">Select Date Range:</label>
+        <label className="font-bold text-[0.9vw]">Select Date Range:</label>
         <select
-          className="border-2 border-gray-300 rounded p-1 cursor-pointer w-[8vw]  ml-2 appearance-none bg-white text-gray-700 py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="border-2 border-gray-300 rounded cursor-pointer w-[8vw]  ml-2 appearance-none bg-white text-[#626469] text-[0.8vw] py-[0.2vw] px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           value={selectedDate}
           onChange={handleDropdownChange}
         >
@@ -1187,12 +1188,12 @@ function DashboardPage() {
               </span>
             }
             hide={"hidden"}
-            height={"100px"}
+            height={"4vw"}
             length="w-full sm:w-[44.5%] md:w-[32%] lg:w-[24.5%] mt-10 border-t-[5px] border-[#1f5897]"
             className="flex items-center justify-center"
           >
             {transformerValue !== null ? (
-              <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
+              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#68717F]">
                 {transformerValue} kWh
               </p>
             ) : (
@@ -1206,12 +1207,12 @@ function DashboardPage() {
           <Div
             title={"Solar Generation"}
             hide={"hidden"}
-            height={"100px"}
+            height={"4vw"}
             length="w-full sm:w-[44.5%] md:w-[32%] lg:w-[24.5%] mt-10 border-t-[5px] border-[#1f5897]"
             className="flex items-center justify-center"
           >
             {solarValue !== null ? (
-              <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
+              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#626469]">
                 {solarValue.toFixed(2)} kWh
               </p>
             ) : (
@@ -1232,13 +1233,13 @@ function DashboardPage() {
               </span>
             }
             hide={"hidden"}
-            height={"100px"}
+            height={"4vw"}
             length="w-full sm:w-[44.5%] md:w-[32%] lg:w-[24.5%] mt-10 border-t-[5px] border-[#1f5897]"
             className="flex items-center justify-center"
           >
             {typeof transformer1Value === "number" &&
             !isNaN(transformer1Value) ? (
-              <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
+              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#626469]">
                 {transformer1Value.toFixed(2)} kWh
               </p>
             ) : (
@@ -1259,12 +1260,12 @@ function DashboardPage() {
               </span>
             }
             hide={"hidden"}
-            height={"100px"}
+            height={"4vw"}
             length="w-full sm:w-[44.5%] md:w-[32%] lg:w-[24.5%] mt-10 border-t-[5px] border-[#1f5897]"
             className="flex items-center justify-center"
           >
             {All_GensetValue !== null ? (
-              <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
+              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#626469]">
                 {All_GensetValue.toFixed(2)} kWh
               </p>
             ) : (
@@ -1286,14 +1287,14 @@ function DashboardPage() {
               </span>
             }
             hide={"hidden"}
-            height={"100px"}
+            height={"4vw"}
             length={
               "w-full sm:w-[49%] lg:w-[32.6%] border-t-[5px] border-[#1f5897]"
             }
             className="flex items-center justify-center"
           >
             {All_ConsumptionValue !== null ? (
-              <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
+              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#626469]">
                 {All_ConsumptionValue.toFixed(2)} kWh
               </p>
             ) : (
@@ -1313,14 +1314,14 @@ function DashboardPage() {
               </span>
             }
             hide={"hidden"}
-            height={"100px"}
+            height={"4vw"}
             length={
               "w-full sm:w-[49%] lg:w-[32.8%] border-t-[5px] border-[#1f5897]"
             }
             className="flex items-center justify-center"
           >
             {All_productionValue !== null ? (
-              <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
+              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#626469]">
                 {All_productionValue.toFixed(2)} kWh
               </p>
             ) : (
@@ -1340,14 +1341,14 @@ function DashboardPage() {
               </span>
             }
             hide={"hidden"}
-            height={"100px"}
+            height={"4vw"}
             length={
               "w-full sm:w-[49.5%] lg:w-[33.2%]  border-t-[5px] border-[#1f5897]"
             }
             className="flex items-center justify-center"
           >
             {All_energyValue !== null ? (
-              <p className="text-2xl font-bold text-center h-full pt-[30px] text-blue-500">
+              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#626469]">
                 {All_energyValue.toFixed(2)} kWh
               </p>
             ) : (
@@ -1357,46 +1358,46 @@ function DashboardPage() {
             )}
           </Div>
           </div>
-          <div className="flex flex-wrap gap-2 ">
-          <div className="flex flex-wrap lg:flex-nowrap gap-4 w-full ">
-            <div className="relative w-full lg:w-[25%] xl:w-[25%] border-t-[5px] border-[#1F5897] rounded-xl max-h-[35vh] shadow-lg overflow-auto">
+          <div className="flex flex-wrap gap-x-2 ">
+          <div className="flex flex-wrap lg:flex-nowrap gap-2 w-full mb-[0.6vw]">
+            <div className="relative w-full lg:w-[25%] xl:w-[25%] border-t-[5px] border-[#1F5897] rounded-xl h-[14vw] shadow-lg overflow-auto">
               {/* Background Layer */}
               <div
                 className="absolute inset-0 bg-[#f2f2f2] rounded-xl"
-                style={{ opacity: 0.5 }}
+                style={{ opacity: 1 }}
               ></div>
 
               {/* Content Layer */}
               <div className="relative z-10 p-3 px-4">
                 {/* Header Section */}
                 <div className="flex justify-between items-center border-b border-white mt-[-5px]">
-                  <h2 className="text-lg font-semibold text-gray-700">
+                  <h2 className="text-[1vw] font-semibold text-[#626469]">
                     Weather
                   </h2>
                 </div>
 
                 {/* Location */}
-                <div className="text-sm text-gray-600 mt-2 flex items-center gap-1">
-                  <MapPin className="w-4 h-4 text-red-500" />
-                  <span className="font-medium">Pakistan, Faisalabad</span>
+                <div className="text-[0.8vw] text-[#626469] mt-[0.7vw] mb-[0.3vw] flex items-center gap-1">
+                  <MapPin className="w-4 h-[1vw] text-red-500" />
+                  <span className="text-[0.8vw] pt-[0.2vw]">Pakistan, Faisalabad</span>
                 </div>
 
                 {/* Temperature Section */}
-                <div className="mt-2">
+                <div className="mt-[0.5]">
                   {weather &&
                   weather.daily &&
                   weather.daily.temperature_2m_max?.[0] &&
                   weather.daily.temperature_2m_min?.[0] ? (
-                    <div className="flex justify-end text-lg font-semibold mt-[-25px] mb-3 mr-2">
+                    <div className="flex justify-end text-[1vw] font-semibold mt-[-25px] mb-3 mr-2">
                       <div className="flex flex-col items-center mr-8">
-                        <p className="text-xs text-black">MIN</p>
-                        <span className="text-sm font-light">
+                        <p className="text-[0.8vw] text-[#626469]">MIN</p>
+                        <span className="text-[0.8vw] font-light">
                           {weather.daily.temperature_2m_min[0]}°C
                         </span>
                       </div>
                       <div className="flex flex-col items-center">
-                        <p className="text-xs text-black">MAX</p>
-                        <span className="text-sm font-light">
+                        <p className="text-[0.8vw] text-[#626469]">MAX</p>
+                        <span className="text-[0.8vw] font-light">
                           {weather.daily.temperature_2m_max[0]}°C
                         </span>
                       </div>
@@ -1559,18 +1560,18 @@ function DashboardPage() {
                 {/* Sunrise, Sunset, Radiation */}
                 <div className="grid grid-cols-3 gap-2 h-[5.5vw]">
                   {/* Sunrise */}
-                  <div className="flex flex-col items-center p-2 rounded-lg shadow-md max-w-[200px]">
+                  <div className="flex flex-col items-center p-2 rounded-lg shadow-md max-w-[600px]">
                     <div className="flex flex-col items-center gap-2">
                       <img
                         src="sunrise.png"
                         alt="Sunrise"
-                        className="w-10 h-10"
+                        className="w-[2vw] h-[2vw]"
                       />
-                      <span className="text-xs font-semibold text-black">
+                      <span className="text-[0.7vw] font-semibold text-[#626469]">
                         Sunrise
                       </span>
                       {weather?.daily?.sunrise?.[0] ? (
-                        <p className="text-sm text-gray-800">
+                        <p className="text-[0.7vw] text-gray-800">
                           {new Date(
                             weather.daily.sunrise[0]
                           ).toLocaleTimeString([], {
@@ -1579,7 +1580,7 @@ function DashboardPage() {
                           })}
                         </p>
                       ) : (
-                        <p className="text-sm text-gray-400">
+                        <p className="text-[0.7vw] text-gray-400">
                           Loading sunrise...
                         </p>
                       )}
@@ -1587,18 +1588,18 @@ function DashboardPage() {
                   </div>
 
                   {/* Sunset */}
-                  <div className="flex flex-col items-center p-2 rounded-lg shadow-md max-w-[200px]">
+                  <div className="flex flex-col items-center p-2 rounded-lg shadow-md max-w-[600px]">
                     <div className="flex flex-col items-center gap-2">
                       <img
                         src="sunset.png"
                         alt="Sunset"
-                        className="w-10 h-10"
+                        className="w-[2vw] h-[2vw]"
                       />
-                      <span className="text-xs font-semibold text-black">
+                      <span className="text-[0.7vw] font-semibold text-[#626469]">
                         Sunset
                       </span>
                       {weather?.daily?.sunset?.[0] ? (
-                        <p className="text-sm text-gray-800">
+                        <p className="text-[0.7vw] text-gray-800">
                           {new Date(weather.daily.sunset[0]).toLocaleTimeString(
                             [],
                             {
@@ -1608,7 +1609,7 @@ function DashboardPage() {
                           )}
                         </p>
                       ) : (
-                        <p className="text-sm text-gray-400">
+                        <p className="text-[0.7vw] text-gray-400">
                           Sunset time loading...
                         </p>
                       )}
@@ -1616,13 +1617,13 @@ function DashboardPage() {
                   </div>
 
                   {/* Radiation */}
-                  <div className="flex flex-col items-center p-2 rounded-lg shadow-md max-w-[200px]">
+                  <div className="flex flex-col items-center p-2 rounded-lg shadow-md max-w-[600px]">
                     <div className="flex flex-col items-center gap-2">
-                      <WiDaySunny className="text-yellow-500 w-10 h-10" />
-                      <span className="text-xs font-semibold text-black">
+                      <WiDaySunny className="text-yellow-500 w-[2vw] h-[2vw]" />
+                      <span className="text-[0.7vw] font-semibold text-[#626469]">
                         Radiation
                       </span>
-                      <p className="text-sm text-gray-800 mt-[-8px]">
+                      <p className="text-[0.7vw] text-gray-800">
                         {weather?.daily?.shortwave_radiation_sum?.[0] !==
                         undefined
                           ? `${weather.daily.shortwave_radiation_sum[0]}`
@@ -1637,25 +1638,25 @@ function DashboardPage() {
 
             <Div
               title="Energy Efficiency"
-              height={"35vh"}
-              length="w-full lg:w-[28.5%] md:w-full border-t-[5px] border-[#1f5897]"
+              height={"14vw"}
+              length="w-full lg:w-[28.5%] md:w-full border-t-[5px] border-[#1f5897] !mb-0"
             >
 
               {/* The original chart container */}
-              <div id="" className="w-full h-[30vh] mt-4 "></div>
+              <div id="" className="w-full h-[12vw] mt-4 "></div>
             </Div>
             <Div
               title="Generation vs Consumption vs Losses"
-              height={"35vh"}
-              length="w-full lg:w-[50%] md:w-full border-t-[5px] border-[#1f5897]"
+              height={"14vw"}
+              length="w-full lg:w-[50%] md:w-full border-t-[5px] border-[#1f5897] !mb-0 mr-[0.4vw]"
             >
               <br></br>
-              <h4 className="text-[0.7vw] float-right mt-1">
+              <h4 className="text-[0.7vw] float-right">
                 <div className="flex justify-between items-center mb-2 ">
-                  <div className="flex gap-4 items-center text-[0.7vw]">
+                  <div className="flex gap-1 items-center text-[0.7vw]">
                     <div className="flex items-center">
-                      <label htmlFor="p_startDate" className="mr-2">
-                        Start Date:
+                      <label htmlFor="p_startDate" className="mr-1">
+                        Start&#160;Date:
                       </label>
                       <input
                         type="date"
@@ -1667,8 +1668,8 @@ function DashboardPage() {
                       />
                     </div>
                     <div className="flex items-center">
-                      <label htmlFor="p_endDate" className="mr-2">
-                        End Date:
+                      <label htmlFor="p_endDate" className="mr-1">
+                        End&#160;Date:
                       </label>
                       <input
                         type="date"
@@ -1712,26 +1713,26 @@ function DashboardPage() {
               </h4>
 
               {/* The original chart container */}
-              <div id="productionChart" className="w-full h-[30vh] mt-4 "></div>
+              <div id="productionChart" className="w-full h-[100%] mt-4 "></div>
             </Div>
           </div>
           <div
             className={`transition-all duration-300 shadow-md rounded-md overflow-hidden ${
               expanded
                 ? "absolute top-0 left-0 w-full h-screen z-[999] border-t-[5px] border-[#1F5897] p-6 bg-white"
-                : "relative w-full max-w-[92%] sm:max-w-[73%] md:max-w-[64%] lg:max-w-[59%] xl:max-w-[49%] h-[30vh] border-t-[5px] border-[#1F5897] p-4"
+                : "relative w-full max-w-[92%] sm:max-w-[73%] md:max-w-[64%] lg:max-w-[59%] xl:max-w-[49%] h-[14vw] border-t-[5px] border-[#1F5897] p-4"
             }`}
           >
             {/* Background Layer */}
             <div
               className="absolute inset-0 bg-white"
-              style={{ opacity: 0.5 }}
+              style={{ opacity: 1 }}
             ></div>
 
             {/* Foreground Content */}
             <div className="relative z-10 h-full flex flex-col justify-between">
               <div className="flex justify-between items-center">
-                <h3 className="text-md font-bold text-gray-700">
+                <h3 className="text-[0.9vw] font-bold text-[#626469]">
                   {/* {selectedCategory} */}
                   Time-Based Comparison of Energy Sources
                 </h3>
@@ -1739,7 +1740,7 @@ function DashboardPage() {
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-[150px] text-gray-600 text-sm bg-white border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-[7.5vw] text-gray-600 text-[0.7vw] bg-white border border-gray-300 rounded-md px-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   >
                     <option value="Solar Generation">Solar Generation</option>
                     <option value="WAPDA">WAPDA</option>
@@ -1748,7 +1749,7 @@ function DashboardPage() {
                   <select
                     value={selectedTimePeriod}
                     onChange={(e) => setSelectedTimePeriod(e.target.value)}
-                    className="w-[220px] text-gray-600 text-sm bg-white border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-[11vw] text-gray-600 text-[0.7vw] bg-white border border-gray-300 rounded-md px-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   >
                     <option value="month">This Month over Last Month</option>
                     <option value="week">This Week over Last Week</option>
@@ -1772,11 +1773,11 @@ function DashboardPage() {
                 {(loading2 || error2) && (
                   <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
                     {loading2 && (
-                      <p className="text-gray-500 text-lg mt-[-80px]">
+                      <p className="text-gray-500 text-[1vw] mt-[-80px]">
                         Loading...
                       </p>
                     )}
-                    {error1 && <p className="text-red-500 text-lg">{error2}</p>}
+                    {error1 && <p className="text-red-500 text-[1vw]">{error2}</p>}
                   </div>
                 )}
                 <div id="chartdiv4" className="w-full h-full mt-[18px]"></div>
@@ -1788,26 +1789,26 @@ function DashboardPage() {
             className={` overflow-hidden transition-all duration-300 shadow-md rounded-md border-t-[5px] border-[#1F5897] ${
               expandedCards?.airConsumption1
                 ? "absolute top-0 left-0 w-full h-screen z-[999] p-6 bg-white"
-                : "w-full sm:w-[74%] md:w-[64%] lg:w-[60%] xl:w-[50%] h-[30vh] relative"
+                : "w-full sm:w-[74%] md:w-[64%] lg:w-[60%] xl:w-[50%] h-[14vw] relative"
             }`}
           >
             {/* Background Layer */}
             <div
               className="absolute inset-0 bg-white"
-              style={{ opacity: 0.5 }}
+              style={{ opacity: 1 }}
             ></div>
 
             {/* Foreground Content */}
             <div className="relative z-10 h-full flex flex-col justify-between">
               <div className="flex justify-between items-center px-2 py-1">
-                <h3 className="text-md font-bold text-gray-700 truncate">
-                  Total Generation
+                <h3 className="text-[0.9vw] font-bold text-[#626469] truncate">
+                VFD (Motor) Energy Comparison
                 </h3>
 
                 <div className="flex items-center space-x-2">
                   <select
                     id="timePeriod"
-                    className="w-[220px] text-gray-600 text-sm bg-white border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-[220px] text-gray-600 text-[0.8vw] bg-white border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     onChange={(e) => setSelectedPeriod(e.target.value)}
                     value={selectedPeriod}
                   >
@@ -1833,11 +1834,11 @@ function DashboardPage() {
                 {(loading1 || error1) && (
                   <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
                     {loading1 && (
-                      <p className="text-gray-500 text-lg mt-[-80px]">
+                      <p className="text-gray-500 text-[1vw] mt-[-80px]">
                         Loading...
                       </p>
                     )}
-                    {error1 && <p className="text-red-500 text-lg">{error1}</p>}
+                    {error1 && <p className="text-red-500 text-[1vw]">{error1}</p>}
                   </div>
                 )}
                 <div id="chartdiv5" className="w-full h-full mt-[15px]"></div>

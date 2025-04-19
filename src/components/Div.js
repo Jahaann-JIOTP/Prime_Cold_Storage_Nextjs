@@ -23,7 +23,7 @@ class Div extends React.Component {
     return (
       <div
         id={id}
-        className={`relative w-full sm:w-full md:w-[46%] ${length} mb-2 rounded-xl shadow-[rgba(0,0,0,0.24)_0px_3px_8px] ${expanded ? "absolute top-0 left-0 w-full h-screen z-[999] bg-white"
+        className={`relative w-full sm:w-full md:w-[46%] ${length} mb-[0.6vw] rounded-xl shadow-[rgba(0,0,0,0.24)_0px_3px_8px] ${expanded ? "absolute top-0 left-0 w-full h-screen z-[999] bg-white"
           : ""}`}
         style={{
           height: expanded ? '100%' : `${height}`,
@@ -34,11 +34,11 @@ class Div extends React.Component {
         }}
       >
         {/* Background Layer with opacity */}
-        <div className="absolute inset-0 bg-white rounded-xl" style={{ opacity: 0.5 }} />
+        <div className="absolute inset-0 bg-white rounded-xl h-full w-full" style={{ opacity: 1 }} />
     
         {/* Content Layer */}
-        <div className="relative text-black p-4 z-10">
-          <div className="absolute top-4 right-4 mr-2">
+        <div className="relative text-[#626469] p-4 z-10 h-full w-full">
+          <div className="absolute top-2 right-2 mr-2">
             <div className="float-right cursor-pointer">
               {date_select}
               <FontAwesomeIcon icon={faExpand} onClick={this.toggleExpand} className={hide} />
@@ -46,7 +46,7 @@ class Div extends React.Component {
           </div>
     
           <div className="absolute top-2 left-4">
-            <p className="text-lg font-bold">{title}</p>
+            <p className="text-[0.9vw] font-bold">{title}</p>
           </div>
     
           {children}

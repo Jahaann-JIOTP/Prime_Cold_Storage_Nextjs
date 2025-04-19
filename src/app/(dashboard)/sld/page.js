@@ -157,7 +157,7 @@ export default function SLDPage() {
   };
 
   return (
-    <div className="relative  flex justify-center w-full h-[85vh] rounded-[8px] border-2 border-[grey] border-t-[4px] border-t-[#1d5999] bg-center bg-contain bg-no-repeat">
+    <div className="relative  flex justify-center w-full h-[39.5vw] rounded-[8px] border-2 border-[grey] border-t-[4px] border-t-[#1d5999] bg-center bg-contain bg-no-repeat">
     {/* Background layer with opacity */}
     <div className="absolute inset-0 bg-white" style={{ opacity: 0.5 }}></div>
   
