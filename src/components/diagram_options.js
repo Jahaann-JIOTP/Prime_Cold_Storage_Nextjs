@@ -53,12 +53,12 @@ const DiagramMenu = () => {
                 {showDashboardSubMenu && (
                     <ul className="bg-[#fff] ml-8 text-black rounded slide-from-right mr-5 text-[14px]">
                         <li>
-                            <Link href="/sld" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "/sld" ||  pathname === "/sld_meters" || pathname === "/Logs" || pathname === "/log_detail" ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2' : ''}`}>
+                            <Link href="/sld" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "/sld" ||  pathname === "/sld_meters" || pathname === "/Logs" || pathname === "/log_detail" ? 'ice-effect text-white' : ''}`}>
                                 - Oneline
                             </Link>
                         </li>
                         {/* <li>
-                            <Link href="#" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "#" ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2' : ''}`}>
+                            <Link href="#" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "#" ? 'ice-effect text-white' : ''}`}>
                                 - Meter Diagram
                             </Link>
                         </li> */}
@@ -84,12 +84,12 @@ const DiagramMenu = () => {
                 {/* {showReportsSubMenu && (
                     <ul className="bg-[#fff] ml-8 text-black rounded slide-from-right mr-5 text-[14px]">
                         <li>
-                            <Link href="#" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "#" ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2' : ''}`}>
+                            <Link href="#" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "#" ? 'ice-effect text-white' : ''}`}>
                                 - Plant
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "#" ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2' : ''}`}>
+                            <Link href="#" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "#" ? 'ice-effect text-white' : ''}`}>
                                 - Office
                             </Link>
                         </li>
@@ -114,12 +114,12 @@ const DiagramMenu = () => {
                 {showPlantSubMenu && (
                     <ul className="bg-[#fff] ml-8 text-black rounded slide-from-right mr-5 text-[14px]">
                         <li>
-                            <Link href="#" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "#" ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2' : ''}`}>
+                            <Link href="#" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "#" ? 'ice-effect text-white' : ''}`}>
                                 - Plant
                             </Link>
                         </li>
                         <li>
-                            <Link href="#" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "#" ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2' : ''}`}>
+                            <Link href="#" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname == "#" ? 'ice-effect text-white' : ''}`}>
                                 - Office
                             </Link>
                         </li>

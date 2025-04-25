@@ -48,10 +48,10 @@ const Sidebar = ({ activeTab, handleTabClick }) => {
     <aside
       className={`relative overflow-hidden ${
         isSidebarOpen ? "w-[14vw]" : "w-[64px]"
-      } flex-shrink-0 h-[39.5vw] m-3 mb-0 rounded-[7px] border-t-[5px] border-t-[#1f5897] border-2 border-[grey] transition-all duration-300`}
+      } flex-shrink-0 h-[39.5vw] max-md:h-[83vh] m-3 mb-0 rounded-[7px] border-t-[5px] border-t-[#1f5897] border-2 border-[grey] transition-all duration-300`}
     >
       {/* Background layer with opacity */}
-      <div className="absolute inset-0 bg-[#f2f2f2]" style={{ opacity: 1 }} />
+      <div className="absolute inset-0 bg-white" style={{ opacity: 1 }} />
       
 
       {/* Foreground content */}
@@ -75,14 +75,17 @@ const Sidebar = ({ activeTab, handleTabClick }) => {
         <div className={`${isSidebarOpen ? "block" : "hidden"}`}>
           {renderMenu()} {/* Render menu dynamically */}
         </div>
-
+        <a
+          href="/"
+        >
         <img
-          src={"./jahaann.svg"}
+          src={"./logout.png"}
           alt="User Image"
           className={`absolute bottom-0 transition-all duration-300 opacity-80 mb-4 ${
-            isSidebarOpen ? "w-[80%]  ml-[10%]" : "w-[64px]"
+            isSidebarOpen ? "w-[40%]  ml-[30%]" : "w-[64px]"
           }`}
         />
+        </a>
       </div>
     </aside>
   );

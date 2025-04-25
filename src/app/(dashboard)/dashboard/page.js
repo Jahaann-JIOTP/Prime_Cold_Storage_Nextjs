@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Div from "@/components/Div";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
@@ -31,11 +31,12 @@ function DashboardPage() {
   const [expandedCards, setExpandedCards] = useState({
     airConsumption1: false,
   });
-  const [selectedCategory, setSelectedCategory] = useState("Solar Generation");
+  const [selectedCategory, setSelectedCategory] = useState("Solar");
   const [selectedTimePeriod, setSelectedTimePeriod] = useState("week");
   const [loading2, setLoading2] = useState(false);
   const [error2, setError2] = useState(null);
   const [allproductionValue, setAllproductionValue] = useState(null); // Added state for consumption value
+  const chartRef = useRef(null);
 
   const [expanded, setExpanded] = useState(false);
   const WeatherCard = ({
@@ -48,16 +49,16 @@ function DashboardPage() {
     <div className="mt-[-15px] flex items-center justify-between p-2 rounded-lg shadow-md custom-weather-condition ">
       <div className="flex items-center space-x-2">
         <span className={`text-5xl text-${color}-600`}>{icon}</span>
-        <p className={`font-semibold text-[1.2vw] text-${color}-600`}>
+        <p className={`font-semibold text-[1.2vw] max-md:text-[12px] text-${color}-600`}>
           {label}
         </p>
       </div>
       <div className="text-center">
-        <p className={`text-[1.3vw] text-blue-600`}>{temp}°C</p>
+        <p className={`text-[1.3vw] max-md:text-[12px] text-blue-600`}>{temp}°C</p>
         {precipitation !== undefined && (
           <>
-            {/* <hr className="my-2 border-t-2 border-gray-300 mt-10" /> */}
-            <p className="text-[1vw] text-gray-600">{precipitation} mm</p>
+            {/* <hr className="my-2 border-t-2 border-gray-300" /> */}
+            <p className="text-[1vw] max-md:text-[12px] text-gray-600">{precipitation} mm</p>
           </>
         )}
       </div>
@@ -536,7 +537,7 @@ function DashboardPage() {
             am4core.color("#666666");
           secondaryValueAxis.renderer.labels.template.fontSize = 12;
           secondaryValueAxis.renderer.labels.template.fontWeight = "bold";
-          secondaryValueAxis.title.text = "SOLAR USAGE (%)";
+          secondaryValueAxis.title.text = "Power Loss";
           secondaryValueAxis.title.rotation = -90;
           secondaryValueAxis.title.fill = am4core.color("#666666");
           secondaryValueAxis.title.fontSize = 12;
@@ -547,48 +548,48 @@ function DashboardPage() {
           secondaryValueAxis.title.dy = -15;
           secondaryValueAxis.title.dx = 0;
           secondaryValueAxis.min = 0;
-          secondaryValueAxis.max = 100; // Assuming solar_usage is a percentage
+          // secondaryValueAxis.max = 100; // Assuming solar_usage is a percentage
 
           // Series for Generated Power (Primary Y-Axis)
           const generatedPowerSeries = chart.series.push(
             new am4charts.ColumnSeries()
           );
-          generatedPowerSeries.dataFields.valueY = "sum_avg_G2_U20_and_U_27";
+          generatedPowerSeries.dataFields.valueY = 'vfd_motor';
           generatedPowerSeries.dataFields.dateX = "date";
-          generatedPowerSeries.name = "Solar Power";
+          generatedPowerSeries.name = "VFD Motor Power";
           generatedPowerSeries.tooltipText =
-            "Solar Power: [bold]{valueY} kW[/]";
+            "VFD Motor Power: [bold]{valueY} kW[/]";
           generatedPowerSeries.columns.template.fill = am4core.color("#219ebc");
 
           // Series for Transformer Power (Primary Y-Axis)
           const transformerPowerSeries = chart.series.push(
             new am4charts.ColumnSeries()
           );
-          transformerPowerSeries.dataFields.valueY = "sum_avg_U_24_and_U_25";
+          transformerPowerSeries.dataFields.valueY = "total_load";
           transformerPowerSeries.dataFields.dateX = "date";
-          transformerPowerSeries.name = "Transformers Power";
+          transformerPowerSeries.name = "Total Load Power";
           transformerPowerSeries.tooltipText =
-            "Transformers Power: [bold]{valueY} kW[/]";
+            "Total Load Power: [bold]{valueY} kW[/]";
           transformerPowerSeries.columns.template.fill =
             am4core.color("#023047");
 
-          const GensetPowerSeries = chart.series.push(
-            new am4charts.ColumnSeries()
-          );
-          GensetPowerSeries.dataFields.valueY =
-            "sum_avg_G1_U16_and_G1_U17_and_G1_U18_and_G1_U19";
-          GensetPowerSeries.dataFields.dateX = "date";
-          GensetPowerSeries.name = "Genset Power";
-          GensetPowerSeries.tooltipText = "Genset Power: [bold]{valueY} kW[/]";
-          GensetPowerSeries.columns.template.fill = am4core.color("#d8e2dc");
+          // const GensetPowerSeries = chart.series.push(
+          //   new am4charts.ColumnSeries()
+          // );
+          // GensetPowerSeries.dataFields.valueY =
+          //   "sum_avg_G1_U16_and_G1_U17_and_G1_U18_and_G1_U19";
+          // GensetPowerSeries.dataFields.dateX = "date";
+          // GensetPowerSeries.name = "Genset Power";
+          // GensetPowerSeries.tooltipText = "Genset Power: [bold]{valueY} kW[/]";
+          // GensetPowerSeries.columns.template.fill = am4core.color("#d8e2dc");
 
           // Series for Solar Usage (Secondary Y-Axis)
           var solarUsageSeries = chart.series.push(new am4charts.LineSeries());
-          solarUsageSeries.dataFields.valueY = "solar_usage";
+          solarUsageSeries.dataFields.valueY = "losses";
           solarUsageSeries.dataFields.dateX = "date";
           solarUsageSeries.yAxis = secondaryValueAxis; // Assign the series to the secondary axis
-          solarUsageSeries.name = "Solar Usage";
-          solarUsageSeries.tooltipText = "Solar Usage: [bold]{valueY}%[/]";
+          solarUsageSeries.name = "Losses";
+          solarUsageSeries.tooltipText = "Losses: [bold]{valueY}kW[/]";
           solarUsageSeries.strokeWidth = 3;
           solarUsageSeries.stroke = am4core.color("#FFA500"); // Orange color
           solarUsageSeries.tooltip.background.fill = am4core.color("#FFA500");
@@ -731,6 +732,8 @@ function DashboardPage() {
       }
     };
 
+
+    
     const createTransformerPieChart = async () => {
       const chartId = "transformerPieChart";
       const chartContainer = document.getElementById(chartId);
@@ -788,66 +791,7 @@ function DashboardPage() {
       }
     };
 
-    const createSolarsVsTransformersChart = async () => {
-      const chartId = "solarsVsTransformersChart";
-      const chartContainer = document.getElementById(chartId);
-
-      if (chartContainer) {
-        const chart = am4core.create(chartId, am4charts.PieChart);
-        chart.logo.disabled = true;
-
-        try {
-          const formattedStartDate1 = startDate1.toISOString().split("T")[0];
-          const formattedEndDate1 = endDate1.toISOString().split("T")[0];
-          const apiUrl = `http://15.206.128.214/Test_API/solar_vs_trans.php?start_date=${formattedStartDate1}&end_date=${formattedEndDate1}`;
-          const response = await axios.get(apiUrl);
-
-          const data = response.data.total_consumption;
-          const chartData = Object.keys(data).map((key) => ({
-            category: key,
-            value: data[key],
-          }));
-
-          chart.data = chartData;
-
-          const pieSeries = chart.series.push(new am4charts.PieSeries());
-          pieSeries.dataFields.value = "value";
-          pieSeries.dataFields.category = "category";
-          pieSeries.slices.template.tooltipText =
-            "{category}: [bold]{value}[/] kWh";
-
-          // Disable outside labels
-          pieSeries.labels.template.disabled = true;
-          pieSeries.ticks.template.disabled = true;
-
-          // Apply custom colors
-          const colorSet = new am4core.ColorSet();
-          colorSet.list = [am4core.color("#e67f22"), am4core.color("#3598db")];
-          pieSeries.colors = colorSet;
-          pieSeries.labels.template.disabled = true;
-          pieSeries.ticks.template.disabled = true;
-
-          // Minimize legend icon size and text size
-          chart.legend = new am4charts.Legend();
-          chart.legend.position = "bottom"; // Adjust position to "bottom" for better mobile view
-          chart.legend.valign = "middle";
-          chart.legend.fontSize = 12;
-          chart.legend.maxWidth = am4core.percent(100); // Ensure it takes full width for smaller screens
-          chart.legend.labels.template.maxWidth = 100;
-          chart.legend.scrollable = true;
-          chart.legend.valueLabels.template.disabled = true;
-
-          // Legend markers configuration
-          var markerTemplate = chart.legend.markers.template;
-          markerTemplate.width = 10;
-          markerTemplate.height = 10;
-
-          solarsVsTransformersChartRef.current = chart;
-        } catch (error) {
-          console.error("Error fetching Solars vs Transformers data:", error);
-        }
-      }
-    };
+    
 
     const fetchDataAndUpdateCharts = async () => {
       setLoading(true);
@@ -856,7 +800,6 @@ function DashboardPage() {
       try {
         await createSolarPieChart();
         await createTransformerPieChart();
-        await createSolarsVsTransformersChart();
       } catch (error) {
         setError("An error occurred while fetching chart data.");
       } finally {
@@ -873,19 +816,87 @@ function DashboardPage() {
       if (transformerPieChartRef.current) {
         transformerPieChartRef.current.dispose();
       }
-      if (solarsVsTransformersChartRef.current) {
-        solarsVsTransformersChartRef.current.dispose();
-      }
     };
   }, [startDate1, endDate1]); // Re-fetch data when timePeriod changes
+  useEffect(() => {
+    const fetchSolarData = () => {
+      const apiUrl = `http://localhost:5000/dashboard/consumption?start_date=${solarStartDate}&end_date=${solarEndDate}`;
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.total_consumption?.Solars) {
+            setSolarValue(data.total_consumption.Solars);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching Solars data:", error);
+        });
+    };
 
+    fetchSolarData();
+    const interval = setInterval(fetchSolarData, 60000);
+    return () => clearInterval(interval);
+  }, [solarStartDate, solarEndDate]);
+
+  // Fetch Transformer Data
+  useEffect(() => {
+    const fetchTransformerData = () => {
+      const apiUrl = `http://localhost:5000/dashboard/consumption?start_date=${transformerStartDate}&end_date=${transformerEndDate}`;
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.total_consumption?.Transformers_Import) {
+            setTransformerValue(data.total_consumption.Transformers_Import);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching Transformers data:", error);
+        });
+    };
+
+    fetchTransformerData();
+    const interval = setInterval(fetchTransformerData, 60000);
+    return () => clearInterval(interval);
+  }, [transformerStartDate, transformerEndDate]);
+
+  // Render Chart
+  useLayoutEffect(() => {
+    let chart = am4core.create("solarTransformerChartDiv", am4charts.PieChart);
+    chartRef.current = chart;
+    if (chart.logo) {
+      chart.logo.disabled = true;
+    }
+    chart.data = [
+      {
+        category: "Solar",
+        value: solarValue || 0,
+      },
+      {
+        category: "Transformer",
+        value: transformerValue || 0,
+      },
+    ];
+
+    let pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.dataFields.value = "value";
+    pieSeries.dataFields.category = "category";
+    pieSeries.slices.template.tooltipText = "{category}: {value}";
+    pieSeries.labels.template.fontSize = 14;
+
+    chart.innerRadius = am4core.percent(30);
+    chart.legend = new am4charts.Legend();
+
+    return () => {
+      chart.dispose();
+    };
+  }, [solarValue, transformerValue]);
   //last div
 
   const fetchChartData1 = async (value) => {
     setLoading1(true);
     setError1(null);
 
-    const apiUrl1 = `http://localhost/Test_Api/total_consumption_pp.php?value=${value}`;
+    const apiUrl1 = `http://localhost:5000/transformer?value=${value}`;
 
     try {
       const response = await fetch(apiUrl1);
@@ -919,7 +930,6 @@ function DashboardPage() {
     const markerTemplate = chart.legend.markers.template;
     markerTemplate.width = 9;
     markerTemplate.height = 9;
-    chart.legend.paddingBottom = 20;
     chart.legend.labels.template.fontSize = "12px";
 
     // Dynamic mapping based on the value parameter:
@@ -995,7 +1005,6 @@ function DashboardPage() {
       series.columns.template.tooltipText = "{name}: [bold]{valueY}[/]";
       series.columns.template.width = am4core.percent(50);
       series.tooltip.pointerOrientation = "vertical";
-      series.tooltip.dy = -10;
       series.tooltip.label.textAlign = "middle";
       series.tooltip.background.stroke = am4core.color("#000");
       series.tooltip.background.strokeWidth = 2;
@@ -1014,9 +1023,9 @@ function DashboardPage() {
 
   // API Endpoints
   const categoryApis = {
-    "Solar Generation": "http://localhost/Test_Api/solar_pp.php?value=",
-    Genset: "http://localhost/Test_Api/Genset_pp.php?value=",
-    Transformer: "http://localhost/Test_Api/transformer_pp.php?value=",
+    Solar: "http://localhost:5000/solar?value=",
+    Generation: "http://localhost:5000/generation?value=",
+    WAPDA: "http://localhost:5000/transformer?value=",
   };
 
   useEffect(() => {
@@ -1066,7 +1075,6 @@ function DashboardPage() {
     const markerTemplate = chart.legend.markers.template;
     markerTemplate.width = 9;
     markerTemplate.height = 9;
-    chart.legend.paddingBottom = 20;
     chart.legend.labels.template.fontSize = "12px";
 
     // Dynamic mapping based on the value parameter:
@@ -1160,11 +1168,11 @@ function DashboardPage() {
   return (
     <main className="p-1 mt-[-12px]">
       <div className="">
-        <label className="font-bold text-[0.9vw]">Select Date Range:</label>
+        <label className="font-bold text-[0.9vw] max-md:text-[12px]">Select Date Range:</label>
         <select
-          className="border-2 border-gray-300 rounded cursor-pointer w-[8vw]  ml-2 appearance-none bg-white text-[#626469] text-[0.8vw] py-[0.2vw] px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="border-2 border-gray-300 rounded cursor-pointer w-[8vw] max-md:w-[80px] max-md:text-[12px]  ml-2 appearance-none bg-white text-[#626469] text-[0.8vw] py-[0.2vw] px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           value={selectedDate}
-          onChange={handleDropdownChange}
+          onChange={handleDropdownChange} 
         >
           <option value="today">Today</option>
           <option value="yesterday">Yesterday</option>
@@ -1176,7 +1184,7 @@ function DashboardPage() {
         </select>
       </div>
       <div className=" h-[83vh] overflow:auto">
-        <div className="flex flex-wrap lg:flex-nowrap gap-2 mt-[-30px]">
+        <div className="flex flex-wrap lg:flex-nowrap gap-2 mt-[8px]">
           {/* Transformers Div */}
           <Div
             title={
@@ -1189,11 +1197,11 @@ function DashboardPage() {
             }
             hide={"hidden"}
             height={"4vw"}
-            length="w-full sm:w-[44.5%] md:w-[32%] lg:w-[24.5%] mt-10 border-t-[5px] border-[#1f5897]"
+            length="  max-md:!h-[60px] max-md:!h-[60px] border-t-[5px] border-[#1f5897]"
             className="flex items-center justify-center"
           >
             {transformerValue !== null ? (
-              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#68717F]">
+              <p className="text-[1.3vw] max-md:text-[12px] font-bold text-center h-full pt-[0.9vw] max-md:pt-[15px] text-[#68717F]">
                 {transformerValue} kWh
               </p>
             ) : (
@@ -1208,11 +1216,11 @@ function DashboardPage() {
             title={"Solar Generation"}
             hide={"hidden"}
             height={"4vw"}
-            length="w-full sm:w-[44.5%] md:w-[32%] lg:w-[24.5%] mt-10 border-t-[5px] border-[#1f5897]"
+            length="  max-md:!h-[60px] max-md:!h-[60px] border-t-[5px] border-[#1f5897]"
             className="flex items-center justify-center"
           >
             {solarValue !== null ? (
-              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#626469]">
+              <p className="text-[1.3vw] max-md:text-[12px] font-bold text-center h-full pt-[0.9vw] max-md:pt-[15px] text-[#626469]">
                 {solarValue.toFixed(2)} kWh
               </p>
             ) : (
@@ -1234,12 +1242,12 @@ function DashboardPage() {
             }
             hide={"hidden"}
             height={"4vw"}
-            length="w-full sm:w-[44.5%] md:w-[32%] lg:w-[24.5%] mt-10 border-t-[5px] border-[#1f5897]"
+            length="max-md:!h-[60px] max-md:!h-[60px] border-t-[5px] border-[#1f5897]"
             className="flex items-center justify-center"
           >
             {typeof transformer1Value === "number" &&
             !isNaN(transformer1Value) ? (
-              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#626469]">
+              <p className="text-[1.3vw] max-md:text-[12px] font-bold text-center h-full pt-[0.9vw] max-md:pt-[15px] text-[#626469]">
                 {transformer1Value.toFixed(2)} kWh
               </p>
             ) : (
@@ -1250,22 +1258,22 @@ function DashboardPage() {
           </Div>
 
           {/* Total Genset Div */}
-          <Div
+          {/* <Div
             title={
               <span
-                className="truncate max-w-[11.5rem] block cursor-pointer"
+                className="truncate max-w-[15rem] block cursor-pointer"
                 title="All Genset"
               >
-                VFD (Motor)
+                Machine (1+2+3) Consumption
               </span>
             }
             hide={"hidden"}
             height={"4vw"}
-            length="w-full sm:w-[44.5%] md:w-[32%] lg:w-[24.5%] mt-10 border-t-[5px] border-[#1f5897]"
+            length="max-md:!h-[60px] max-md:!h-[60px] border-t-[5px] border-[#1f5897]"
             className="flex items-center justify-center"
           >
             {All_GensetValue !== null ? (
-              <p className="text-[1.3vw] font-bold text-center h-full pt-[0.9vw] text-[#626469]">
+              <p className="text-[1.3vw] max-md:text-[12px] font-bold text-center h-full pt-[0.9vw] max-md:pt-[15px] text-[#626469]">
                 {All_GensetValue.toFixed(2)} kWh
               </p>
             ) : (
@@ -1273,7 +1281,7 @@ function DashboardPage() {
                 <p>Loading...</p>
               </div>
             )}
-          </Div>
+          </Div> */}
         </div>
 
         <div className="flex flex-wrap gap-2 lg:flex-nowrap">
@@ -1307,10 +1315,10 @@ function DashboardPage() {
           <Div
             title={
               <span
-                className="truncate max-w-[11.5rem] block cursor-pointer"
+                className="truncate max-w-[15rem] block cursor-pointer"
                 title="Total Consumption"
               >
-                Total Consumption
+                Machine (1+2+3) Consumption
               </span>
             }
             hide={"hidden"}
@@ -1363,7 +1371,7 @@ function DashboardPage() {
             <div className="relative w-full lg:w-[25%] xl:w-[25%] border-t-[5px] border-[#1F5897] rounded-xl h-[14vw] shadow-lg overflow-auto">
               {/* Background Layer */}
               <div
-                className="absolute inset-0 bg-[#f2f2f2] rounded-xl"
+                className="absolute inset-0 bg-white rounded-xl"
                 style={{ opacity: 1 }}
               ></div>
 
@@ -1643,7 +1651,7 @@ function DashboardPage() {
             >
 
               {/* The original chart container */}
-              <div id="" className="w-full h-[12vw] mt-4 "></div>
+              <div id="solarTransformerChartDiv" className="w-full h-[100%] mt-4 "></div>
             </Div>
             <Div
               title="Generation vs Consumption vs Losses"
@@ -1652,8 +1660,8 @@ function DashboardPage() {
             >
               <br></br>
               <h4 className="text-[0.7vw] float-right">
-                <div className="flex justify-between items-center mb-2 ">
-                  <div className="flex gap-1 items-center text-[0.7vw]">
+                <div className="flex items-center mb-2 ">
+                  <div className="flex gap-1 items-center justify-end text-[0.7vw]">
                     <div className="flex items-center">
                       <label htmlFor="p_startDate" className="mr-1">
                         Start&#160;Date:
@@ -1717,10 +1725,10 @@ function DashboardPage() {
             </Div>
           </div>
           <div
-            className={`transition-all duration-300 shadow-md rounded-md overflow-hidden ${
+            className={` overflow-hidden transition-all duration-300 shadow-md rounded-md border-t-[5px] border-[#1F5897] ${
               expanded
-                ? "absolute top-0 left-0 w-full h-screen z-[999] border-t-[5px] border-[#1F5897] p-6 bg-white"
-                : "relative w-full max-w-[92%] sm:max-w-[73%] md:max-w-[64%] lg:max-w-[59%] xl:max-w-[49%] h-[14vw] border-t-[5px] border-[#1F5897] p-4"
+                ? "absolute top-0 left-0 w-full h-screen z-[999] p-6 bg-white"
+                : "w-full sm:w-[100%] md:w-[100%] lg:w-[49.5%] xl:w-[49.5%] h-[14vw] relative"
             }`}
           >
             {/* Background Layer */}
@@ -1731,20 +1739,20 @@ function DashboardPage() {
 
             {/* Foreground Content */}
             <div className="relative z-10 h-full flex flex-col justify-between">
-              <div className="flex justify-between items-center">
-                <h3 className="text-[0.9vw] font-bold text-[#626469]">
+              <div className="flex justify-between items-center px-2 py-1">
+                <h3 className="text-[0.9vw] font-bold text-[#626469] truncate">
                   {/* {selectedCategory} */}
                   Time-Based Comparison of Energy Sources
                 </h3>
-                <div className="flex space-x-2 mt-[-8px]">
+                <div className="flex space-x-2">
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     className="w-[7.5vw] text-gray-600 text-[0.7vw] bg-white border border-gray-300 rounded-md px-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   >
-                    <option value="Solar Generation">Solar Generation</option>
+                    <option value="Solar">Solar Generation</option>
                     <option value="WAPDA">WAPDA</option>
-                    <option value="Genset">Genset</option>
+                    <option value="Generation">Total Load</option>
                   </select>
                   <select
                     value={selectedTimePeriod}
@@ -1780,7 +1788,7 @@ function DashboardPage() {
                     {error1 && <p className="text-red-500 text-[1vw]">{error2}</p>}
                   </div>
                 )}
-                <div id="chartdiv4" className="w-full h-full mt-[18px]"></div>
+                <div id="chartdiv4" className="w-full h-full mt-[15px]"></div>
               </div>
             </div>
           </div>
@@ -1789,7 +1797,7 @@ function DashboardPage() {
             className={` overflow-hidden transition-all duration-300 shadow-md rounded-md border-t-[5px] border-[#1F5897] ${
               expandedCards?.airConsumption1
                 ? "absolute top-0 left-0 w-full h-screen z-[999] p-6 bg-white"
-                : "w-full sm:w-[74%] md:w-[64%] lg:w-[60%] xl:w-[50%] h-[14vw] relative"
+                : "w-full sm:w-[100%] md:w-[100%] lg:w-[49.5%] xl:w-[49.5%] h-[14vw] relative"
             }`}
           >
             {/* Background Layer */}
@@ -1830,7 +1838,7 @@ function DashboardPage() {
                 </div>
               </div>
 
-              {/* <div className="relative w-full h-[90%]">
+              <div className="relative w-full h-[90%]">
                 {(loading1 || error1) && (
                   <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
                     {loading1 && (
@@ -1842,7 +1850,7 @@ function DashboardPage() {
                   </div>
                 )}
                 <div id="chartdiv5" className="w-full h-full mt-[15px]"></div>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>

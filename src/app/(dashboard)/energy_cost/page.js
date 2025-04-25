@@ -228,11 +228,11 @@ const ExamplePage = () => {
     );
 
     return (
-      <div className="relative shadow-lg rounded-[8px] w-full h-[85vh] overflow-auto border-2 border-[grey] border-t-[4px] border-t-[#1d5998]">
+      <div className="relative shadow-lg rounded-[8px] w-full h-[83vh] overflow-auto border-2 border-[grey] border-t-[4px] border-t-[#1d5998]">
         {/* Background layer with opacity */}
         {/* <div
-          className="absolute inset-0 bg-[#f2f2f2] h-full"
-          style={{ opacity: 0.5 }}
+          className="absolute inset-0 bg-white h-full"
+          style={{ opacity: 1 }}
         ></div> */}
 
         {/* Foreground content */}
@@ -403,12 +403,12 @@ const ExamplePage = () => {
     <div
       id="energy-cost-report"
       className="relative shadow-lg rounded-[8px] w-full h-full border-2 border-[grey] border-t-[4px] border-t-[#1d5998] overflow-hidden"
-      style={{ minHeight: "85vh" }}
+      style={{ minHeight: "83vh" }}
     >
       {/* Background Layer */}
       <div
-        className="absolute inset-0 bg-[#f2f2f2]"
-        style={{ opacity: 0.5 }}
+        className="absolute inset-0 bg-white"
+        style={{ opacity: 1 }}
       ></div>
 
       {/* Foreground Content */}

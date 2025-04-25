@@ -14,7 +14,7 @@ const TrendMenu = () => {
                     href="/custom_trend"
                     className={`block py-3 px-4 rounded transition-colors duration-300 text-[14px] ${
                         pathname === "/custom_trend"
-                            ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2'
+                            ? 'ice-effect text-white'
                             : 'hover:bg-[#E5E5E5] text-gray-600'
                     }`}
                 >
@@ -26,7 +26,7 @@ const TrendMenu = () => {
                     href="/comparison_trend"
                     className={`block py-3 px-4 rounded transition-colors duration-300 text-[14px] ${
                         pathname === "/comparison_trend"
-                            ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2'
+                            ? 'ice-effect text-white'
                             : 'hover:bg-[#E5E5E5] text-gray-600'
                     }`}
                 >

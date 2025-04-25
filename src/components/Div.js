@@ -46,7 +46,7 @@ class Div extends React.Component {
           </div>
     
           <div className="absolute top-2 left-4">
-            <p className="text-[0.9vw] font-bold">{title}</p>
+            <p className="text-[0.9vw] max-md:text-[12px] font-bold">{title}</p>
           </div>
     
           {children}

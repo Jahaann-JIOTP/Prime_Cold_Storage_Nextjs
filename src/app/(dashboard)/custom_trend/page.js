@@ -295,10 +295,10 @@ function CustomTrend() {
 
   return (
 
-    <div className="relative flex-shrink-0 w-full p-6 h-[85vh] rounded-[8px] border-2 border-[grey] border-t-[4px] border-t-[#1d5999] overflow-hidden">
+    <div className="relative flex-shrink-0 w-full p-6 h-[83vh] rounded-[8px] border-2 border-[grey] border-t-[4px] border-t-[#1d5999] overflow-hidden">
   {/* Background layer with opacity */}
   
-  <div className="absolute inset-0 bg-[#f2f2f2]" style={{ opacity: 1 }}></div>
+  <div className="absolute inset-0 bg-white" style={{ opacity: 1 }}></div>
 
   {/* Foreground content */}
   <div className="relative z-10 h-full flex flex-col">

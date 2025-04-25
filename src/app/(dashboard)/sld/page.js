@@ -7,32 +7,43 @@ export default function SLDPage() {
 
   // Define meterMapping within the component
   const meterMapping = {
-    // Solar1: {
-    //   prefix: "G2_U20",
-    //   position: { top: "86px", left: "5px" },
-    //   link: "sld_meters?id=T_1&meter=G2_U20",
-    //   lightPosition: { top: "100px", left: "20px" },
-    //   clickableSize: { width: "90px", height: "80px" }, // Custom size for Solar1
-    // },
-    // Solar2: {
-    //   prefix: "U_27",
-    //   position: { top: "86px", left: "195px" },
-    //   link: "sld_meters1?id=T_1&meter=U_27",
-    //   lightPosition: { top: "100px", left: "215px" },
-    //   clickableSize: { width: "90px", height: "80px" }, // Custom size for Solar2
-    // },
-    // TR_1: {
-    //   prefix: "U_24",
-    //   position: { top: "170px", left: "418px" },
-    //   link: "sld_meters?id=T_1&&meter=U_24",
-    //   lightPosition: { top: "170px", left: "404px" },
-    // },
-    // TR_2: {
-    //   prefix: "U_25",
-    //   position: { top: "170px", left: "612px" },
-    //   link: "sld_meters?id=T_1&&meter=U_25",
-    //   lightPosition: { top: "170px", left: "598px" },
-    // },
+    Machine1: {
+      prefix: "U_24",
+      position: { top: "170px", left: "418px" },
+      link: "sld_meters?id=T_1&&meter=U_24",
+      lightPosition: { top: "435px", left: "30px" },
+    },
+
+    Machine2: {
+      prefix: "G2_U20",
+      position: { top: "86px", left: "5px" },
+      link: "sld_meters?id=T_1&meter=G2_U20",
+      lightPosition: { top: "435px", left: "252px" },
+      clickableSize: { width: "90px", height: "80px" }, // Custom size for Machine2
+    },
+
+    Machine3: {
+      prefix: "G2_U20",
+      position: { top: "86px", left: "5px" },
+      link: "sld_meters?id=T_1&meter=G2_U20",
+      lightPosition: { top: "435px", left: "458px" },
+      clickableSize: { width: "90px", height: "80px" }, // Custom size for Machine3
+    },
+    
+    Solar2: {
+      prefix: "U_27",
+      position: { top: "86px", left: "195px" },
+      link: "sld_meters1?id=T_1&meter=U_27",
+      lightPosition: { top: "215px", left: "360px" },
+      clickableSize: { width: "90px", height: "80px" }, // Custom size for Solar2
+    },
+    
+    TR_2: {
+      prefix: "U_25",
+      position: { top: "170px", left: "612px" },
+      link: "sld_meters?id=T_1&&meter=U_25",
+      lightPosition: { top: "215px", left: "130px" },
+    },
   };
 
   // Function to fetch data from the API
@@ -157,64 +168,75 @@ export default function SLDPage() {
   };
 
   return (
-    <div className="relative  flex justify-center w-full h-[39.5vw] rounded-[8px] border-2 border-[grey] border-t-[4px] border-t-[#1d5999] bg-center bg-contain bg-no-repeat">
+    <div className="relative overflow-auto bg-white flex justify-center w-full h-[39.5vw] rounded-[8px] border-2 border-[grey] border-t-[4px] border-t-[#1d5999] bg-center bg-contain bg-no-repeat">
     {/* Background layer with opacity */}
-    <div className="absolute inset-0 bg-white" style={{ opacity: 0.5 }}></div>
+    <div className="absolute inset-0 bg-white" style={{ opacity: 1 }}></div>
   
     {/* Content layer (foreground) */}
     <div className="relative z-10">
-      <div className=" relative pr-[50px]">
-          {/* <img src="/GCL_SLD.png" alt="Ghani Ceramics SLD" /> */}
+      <div className=" relative h-[550px] mt-[1vw] text-left">
+          <img src="/sld.png" alt="Ghani Ceramics SLD" className="h-full" />
         {/* Dynamic meter rendering */}
         {Object.entries(meterMapping).map(([meterName, config]) =>
           renderMeterData(config.prefix, config)
         )}
   
-        {/* Solar1 */}
+        {/* WAPDA */}
 
-          {/* <div className="absolute left-[80px] top-[180px] text-[14px] font-bold text-[#167fe4] text-center">
-          <p> {getValue("G2_U20_ACTIVE_POWER_TOTAL_KW")} kW</p>
-            <p className="mb-[-3px] mt-[-3px]">
+          <div className="absolute left-[190px] top-[240px] text-[14px] font-bold text-[#167fe4]">
+          <p> {(getValue("U_25_ACTIVE_POWER_TOTAL_KW") / 1000).toFixed(2)} kW</p>
+            <p className="">
               {" "}
-              {getValue("G2_U20_VOLTAGE_L_L_AVG_V")} V
+              {getValue("U_25_VOLTAGE_L_L_AVG_V")} V
             </p>
-          <p> {getValue("G2_U20_CURRENT_TOTAL_A")} A</p>
-          </div> */}
+          <p> {getValue("U_25_CURRENT_TOTAL_A")} A</p>
+          </div>
   
-        {/* Solar2 */}
-          {/* <div className="absolute left-[270px] top-[180px] text-[13px] font-bold text-[#167fe4] text-center">
+        {/* Solar */}
+          <div className="absolute left-[420px] top-[240px] text-[14px] font-bold text-[#167fe4]">
             <p> {getValue("U_27_ACTIVE_POWER_TOTAL_KW")} kW</p>
-            <p className="mb-[-3px] mt-[-3px]">
+            <p className="">
               {" "}
               {getValue("U_27_VOLTAGE_L_L_AVG_V")} V
             </p>
             <p> {getValue("U_27_CURRENT_AVG_A")} A</p>
-          </div> */}
-          {/*Total Power Trafo */}
-          {/* <div className="absolute left-[570px] top-[60px] text-[13px] font-bold text-[#167fe4] text-center">
-            <p>
-              {(
-                ((parseFloat(getValue("U_24_ACTIVE_POWER_TOTAL_KW")) || 0) +
-                  Math.abs(
-                    parseFloat(getValue("U_25_ACTIVE_POWER_TOTAL_KW")) || 0
-                  )) /
-                1000
-              ).toFixed(2)}{" "}
-              kW
-            </p>
-          </div> */}
-          {/* Trafo1 */}
-          {/* <div className="absolute left-[480px] top-[180px] text-[13px] font-bold text-[#167fe4] text-center">
+          </div>
+          {/* M1 */}
+          <div className="absolute left-[90px] top-[460px] text-[14px] font-bold text-[#167fe4]">
             <p>
               {" "}
               {(getValue("U_24_ACTIVE_POWER_TOTAL_KW") / 1000).toFixed(2)} kW
             </p>
-            <p className="mb-[-3px] mt-[-3px]">
+            <p className="">
               {" "}
               {getValue("U_24_VOLTAGE_L_L_AVG_V")} V
             </p>
             <p> {getValue("U_24_CURRENT_TOTAL_A")} A</p>
-          </div> */}
+          </div>
+          {/* M2 */}
+          <div className="absolute left-[315px] top-[460px] text-[14px] font-bold text-[#167fe4]">
+            <p>
+              {" "}
+              {getValue("G2_U20_ACTIVE_POWER_TOTAL_KW")} kW
+            </p>
+            <p className="">
+              {" "}
+              {getValue("G2_U20_VOLTAGE_L_L_AVG_V")} V
+            </p>
+            <p> {getValue("G2_U20_CURRENT_TOTAL_A")} A</p>
+            </div>
+            {/* M3 */}
+          <div className="absolute left-[520px] top-[460px] text-[14px] font-bold text-[#167fe4] w-[120px]">
+            <p>
+              {" "}
+              {getValue("G2_U20_ACTIVE_POWER_TOTAL_KW")} kW
+            </p>
+            <p className="">
+              {" "}
+              {getValue("G2_U20_VOLTAGE_L_L_AVG_V")} V
+            </p>
+            <p> {getValue("G2_U20_CURRENT_TOTAL_A")} A</p>
+            </div>
         </div>
       </div>
     </div>

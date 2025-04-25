@@ -230,11 +230,11 @@ const ExamplePage = () => {
   if (isSubmitted && fetchedData) {
     return (
       <div
-      className="relative shadow-lg rounded-[8px] w-full h-[85vh] overflow-auto border-2 border-[grey] border-t-[4px] border-t-[#1d5998]"
-      style={{ minHeight: "85vh" }}
+      className="relative shadow-lg rounded-[8px] w-full h-[83vh] overflow-auto border-2 border-[grey] border-t-[4px] border-t-[#1d5998]"
+      style={{ minHeight: "83vh" }}
     >
       {/* Background layer with opacity */}
-      <div className="absolute inset-0 bg-[#f2f2f2]" style={{ opacity: 0.5 }}></div>
+      <div className="absolute inset-0 bg-white" style={{ opacity: 1 }}></div>
     
       {/* Foreground content */}
       <div className="relative z-10 p-6">
@@ -402,10 +402,10 @@ const ExamplePage = () => {
     <div
   id="energy-cost-report"
   className="relative shadow-lg rounded-[8px] w-full h-full border-2 border-[grey] border-t-[4px] border-t-[#1d5998] overflow-hidden"
-  style={{ minHeight: "85vh" }}
+  style={{ minHeight: "83vh" }}
 >
   {/* Background layer with opacity */}
-  <div className="absolute inset-0 bg-[#f2f2f2]" style={{ opacity: 0.5 }}></div>
+  <div className="absolute inset-0 bg-white" style={{ opacity: 1 }}></div>
 
   {/* Foreground content */}
   <div className="relative z-10 p-6">

@@ -51,18 +51,18 @@ const DashboardMenu = () => {
                 {showDashboardSubMenu && (
                     <ul className="bg-[#fff] slide-from-right ml-8 text-gray-600 rounded mr-5 text-[13px]">
                         <li>
-                            <Link href="/dashboard" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname === "/dashboard" ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2' : ''}`}>
+                            <Link href="/dashboard" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname === "/dashboard" ? 'ice-effect text-white' : ''}`}>
                                 - Plant Summary
                             </Link>
                         </li>
                         <li>
-                            <Link href="/status_table" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname === "/status_table" ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2' : ''}`}>
+                            <Link href="/status_table" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname === "/status_table" ? 'ice-effect text-white' : ''}`}>
                                 - Status Table
                             </Link>
                         </li>
 
                         {/* <li>
-                            <Link href="/Sanky" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname === "/Sanky" ? 'border-t border-b border-[#1f5897] bg-[#95bfed] text-gray-800 font-semibold shadow-md mx-2' : ''}`}>
+                            <Link href="/Sanky" className={`block py-2 px-4 hover:bg-[#E5E5E5] rounded ${pathname === "/Sanky" ? 'ice-effect text-white' : ''}`}>
                                 - Sanky
                             </Link>
                         </li> */}
